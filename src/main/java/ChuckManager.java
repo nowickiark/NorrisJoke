@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class ChuckManager {
@@ -13,8 +14,7 @@ public class ChuckManager {
 
 
 
-    public static void joke()
-    {
+    public static void joke() {
         int maxlen = 0;
         String maxJoke = null;
 
@@ -23,40 +23,56 @@ public class ChuckManager {
 
         String rawResponse = null;
 
-        try{
+        String kat = null;
+
+        Scanner scan1 = new Scanner(System.in);
+        System.out.print("Podaj kategorię dla jakiej ściagnąć żarty : ");
+        kat = scan1.nextLine();
+
+        try {
             /*System.out.println(getJokeOnly( getResponse("https://api.chucknorris.io/jokes/random")));*/
-            rawResponse =  getResponse("https://api.chucknorris.io/jokes/search?query=cheese");
+            /*rawResponse =  getResponse("https://api.chucknorris.io/jokes/search?query=cheese");*/
+            rawResponse = getResponse("https://api.chucknorris.io/jokes/search?query=" + kat);
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         List<NorrisJoke> list = getJokeList(rawResponse);
-        System.out.println(list.get(0).getValue());
 
 
+        System.out.println("Losowy dowcip z " + kat);
+        System.out.println(list.get((int) (Math.random() * list.size() + 1)).getValue());
 
-        for(NorrisJoke nor : list)
-        {
+
+        for (NorrisJoke nor : list) {
             if (nor.getValue().length() > maxlen) {
                 maxlen = nor.getValue().length();
                 maxJoke = nor.getValue();
-            };
+            }
+            ;
 
             if (nor.getValue().length() < maxlen) {
                 minlen = nor.getValue().length();
                 minJoke = nor.getValue();
-            };
+            }
+            ;
         }
 
         System.out.println();
-        System.out.println("Najdłuższy kawał o serze z Chuckiem Norrisem to: ");
+        System.out.println("Najdłuższy kawał o " + kat + " z Chuckiem Norrisem to: ");
         System.out.println(maxJoke);
 
         System.out.println();
-        System.out.println("Najkrutszy kawał o serze z Chuckiem Norrisem to: ");
+        System.out.println("Najkrutszy kawał o " + kat + " z Chuckiem Norrisem to: ");
         System.out.println(minJoke);
+
+        for (NorrisJoke nor : list)
+        {
+            System.out.println(nor.getValue());
+            
+        }
 
 
     }
