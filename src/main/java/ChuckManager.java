@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 public class ChuckManager {
 
 
-
-
     public static void joke() {
         int maxlen = 0;
         String maxJoke = null;
@@ -47,37 +45,41 @@ public class ChuckManager {
 
 
         for (NorrisJoke nor : list) {
+
             if (nor.getValue().length() > maxlen) {
                 maxlen = nor.getValue().length();
                 maxJoke = nor.getValue();
             }
-            ;
 
             if (nor.getValue().length() < maxlen) {
                 minlen = nor.getValue().length();
                 minJoke = nor.getValue();
             }
-            ;
         }
 
         System.out.println();
         System.out.println("Najdłuższy kawał o " + kat + " z Chuckiem Norrisem to: ");
         System.out.println(maxJoke);
 
+
         System.out.println();
         System.out.println("Najkrutszy kawał o " + kat + " z Chuckiem Norrisem to: ");
         System.out.println(minJoke);
 
+
+        System.out.println();
+        System.out.println("############################# Lista wszystkich kawałów w temacie " + kat + "#################################");
+        System.out.println();
+        System.out.print("Rozmiar listy : " + list.size());
+        System.out.println();
+
         for (NorrisJoke nor : list)
         {
             System.out.println(nor.getValue());
-            
         }
 
 
     }
-
-
 
 
 
